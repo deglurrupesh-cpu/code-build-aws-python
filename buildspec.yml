@@ -6,13 +6,15 @@ phases:
       python: 3.11
     commands:
       - echo "Installing dependencies..."
+      - python --version
+      - pip --version
       - pip install -r requirements.txt
       - pip install pytest
 
   pre_build:
     commands:
       - echo "Running unit tests..."
-      - pytest test_app.py
+      - pytest -v test_app.py
 
   build:
     commands:
@@ -28,4 +30,3 @@ artifacts:
     - app.py
     - requirements.txt
     - Dockerfile
-  name: python-app-build-$(date +%Y%m%d%H%M%S)
