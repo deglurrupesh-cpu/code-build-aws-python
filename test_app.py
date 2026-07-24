@@ -1,13 +1,17 @@
-FROM python:3.11-slim
+from app import app
 
-WORKDIR /app
 
-COPY requirements.txt .
+def test_home():
+    client = app.test_client()
 
-RUN pip install --no-cache-dir -r requirements.txt
+    response = client.get("/")
 
-COPY . .
+    assert response.status_code == 200
 
-EXPOSE 5000
 
-CMD ["python", "app.py"]
+def test_health():
+    client = app.test_client()
+
+    response = client.get("/health")
+
+    assert response.status_code == 200
